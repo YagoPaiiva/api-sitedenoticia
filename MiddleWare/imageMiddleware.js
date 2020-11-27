@@ -37,9 +37,9 @@ exports.resize = async(req, res, next) =>{
 			let filename= `${uuid.v4()}.${ext}`;
 			photoArray[count] = filename;
 			let Photo = await Jimp.read(req.files[count].buffer);
-			await Photo.resize(50, 50);
+			await Photo.resize(280, 230);
 			await Photo.write(`./Public/Media/ImageNews/${filename}`);
-			
+		
 		}
 		req.body.photo = photoArray;
 	}

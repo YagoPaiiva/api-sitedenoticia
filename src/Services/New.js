@@ -23,8 +23,8 @@ const newsSchema = mongoose.Schema({
     },  
     number:Number,
     slug:String,
-    path:Array,
-    id:String
+    url:Array,
+    name:String
 });
 
 newsSchema.pre('save', async function(next){

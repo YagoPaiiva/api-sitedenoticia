@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.urlencoded({extended:true}));
 
 app.use(cookie(process.env.SECRETKEY));
+
 app.use(session({
     secret:process.env.SECRETKEY,
     resave:false,
@@ -31,9 +32,11 @@ app.use(passport.session());
 
 
 const Account = require('./src/Services/Account');
+
 passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
 app.use('/api', routes);
+
 module.exports = app;

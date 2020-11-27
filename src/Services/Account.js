@@ -30,6 +30,7 @@ const accountSchema = new mongoose.Schema({
 });
 
 accountSchema.pre('save', async function(next){
+    
     if (this.isModified('Fullname')){
         this.slug = slug(this.Fullname, {lower:true})
     }
