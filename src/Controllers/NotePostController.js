@@ -1,14 +1,49 @@
-const Account = require('../Services/Account');
-
 const tokenjwt = require('jsonwebtoken');
-const New = require('../Services/New');
 const NoteServices = require('../Services/NoteServices');
-const noteGetController = require('./noteGetController');
-
+const SES = require('aws-sdk/clients/ses');
 
 require('dotenv').config();
 
 module.exports = {
+
+    run:async(req, res, next)=>{
+            
+        let clients = new SES({
+                region:'us-east-1'
+            });
+
+            clients
+            .getSendQuota()
+            .promise()
+            .then(data => console.log(data))
+            .catch(error => console.log(error));
+
+
+           await clients.sendEmail({
+                Source: 'Yago Paiva <paiivayago@gmail.com>',
+                Destination: {
+                    ToAddresses:['Yago Paiva <paiivasyago@paiivas.com>'],
+                },
+                Message:{
+                    Subject:{   
+                        Data:'Eu te amo',
+                    },
+                    Body:{
+                        Text:{
+                            Data:'Envio de email feito com sucesso'
+                        },
+                    },
+                },
+                ConfigurationSetName: 'resumeService',
+            })
+            .promise()
+            .then(data=> console.log(data))
+            .catch(error=> console.log(error));
+            res.json({ok:true})
+        },
+    showPing:(req, res, next)=>{
+        res.json({pong:true});
+    },
 
     createAccount:async(req, res)=>{
     

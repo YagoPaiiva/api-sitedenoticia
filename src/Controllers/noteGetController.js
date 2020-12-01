@@ -1,12 +1,8 @@
 require('dotenv').config();
 const NoteServices = require('../Services/NoteServices');
-const Categories = require('../Services/Categories');
-const New = require('../Services/New');
-
 
 module.exports={
-
-    showPing:(req, res)=>{
+    showPing:(req, res, next)=>{
         res.json({pong:true});
     },
 

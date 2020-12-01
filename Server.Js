@@ -1,17 +1,4 @@
-const mongoose = require('mongoose');
 require('dotenv').config();
-
-mongoose.connect(process.env.DATABASE,{
-    useNewUrlParser:true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true
-})
-
-mongoose.Promise = global.Promise;
-mongoose.connection.on('error',(error)=>{
-    console.error(`ERROR: ${error.message}`);
-});
 
 const app = require('./App');
 

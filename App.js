@@ -1,6 +1,4 @@
 const express = require('express');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookie = require('cookie-parser');
@@ -26,16 +24,6 @@ app.use(session({
     saveUninitialized:false,
 
 }));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-
-const Account = require('./src/Services/Account');
-
-passport.use(new LocalStrategy(Account.authenticate()));
-passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser());
 
 app.use('/api', routes);
 

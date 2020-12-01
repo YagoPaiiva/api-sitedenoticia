@@ -1,5 +1,6 @@
 const db = require('../../db');
 const Slug = require('slug');
+const {v4} = require('uuid');
 
 module.exports = {
     
@@ -68,14 +69,13 @@ module.exports = {
     },
 
     postNews:(title, categories, news, url_imgs)=>{
-
         return new Promise ((resolve, reject)=>{
 
             db.query(`
             INSERT INTO news
-                (id_news,title, categories, news,url_imgs)
+                (id_news,title, categories, news, url_imgs)
             VALUES (
-                    default,
+                    '${v4()}',
                     '${title}',
                     '${categories}',
                     '${news}',
@@ -85,7 +85,7 @@ module.exports = {
                     reject(error);
                     return;
                 }
-                
+  
                 resolve(result);
             })
 
